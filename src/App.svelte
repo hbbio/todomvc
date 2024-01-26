@@ -1,38 +1,30 @@
-<script>
+<script lang="ts">
   import { instance } from "@viz-js/viz";
 
-  import { Sheet, SheetProxy, filter } from "@okcontract/cells";
+  import { Sheet, SheetProxy, filter, Debugger } from "@okcontract/cells";
   import { sort } from "./sort";
 
+  import { getSHA256Hash } from "./hash";
+
   const sheet = new Sheet(); // should be global for app
-  // const debug = new Debugger(sheet);
-  // window["debug"] = debug;
+  const debug = new Debugger(sheet);
+  // @ts-ignore
+  window["debug"] = debug;
   const proxy = new SheetProxy(sheet); // local for a page/component
 
   import Item from "./Item.svelte";
+  import type { Todo } from "./types";
+
   // import Explorer from "./Explorer.svelte";
 
-  // sample async function
-  const getSHA256Hash = async (input) => {
-    const textAsBuffer = new TextEncoder().encode(input);
-    const hashBuffer = await window.crypto.subtle.digest(
-      "SHA-256",
-      textAsBuffer,
-    );
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hash = hashArray
-      .map((item) => item.toString(16).padStart(2, "0"))
-      .join("");
-    return hash;
-  };
-
   // this is our main list
-  export const todos = proxy.new([], "todos");
+  export const todos = proxy.new([] as Todo[], "todos");
   // current selected value
-  const nullCell = proxy.new(null, "null");
+  const nullCell = proxy.new<Todo | null>(null, "null");
   const selected = proxy.new(nullCell, "selected");
   // map async function
   const hash = selected.map(
+    // @ts-ignore
     async (_todo) => (_todo ? getSHA256Hash(_todo.text) : nullCell),
     "hash",
   );
@@ -44,9 +36,9 @@
 
   let input = "";
 
-  const newTodo = (input) =>
+  const newTodo = (input: string) =>
     proxy.new(
-      { id: Date.now(), text: input, completed: false },
+      { id: Date.now(), text: input, completed: false } as Todo,
       `item:${input}`,
     );
 
@@ -57,15 +49,15 @@
     }
   };
 
-  const deleteTodo = (id) => {
+  const deleteTodo = (id: number) => {
     if ($selected?.id === id) selected.set(nullCell);
-    filter(todos, (todo) => todo.id !== id);
+    filter(todos, (todo: Todo) => todo.id !== id);
   };
 
-  let graph;
+  let graph: HTMLElement;
   const updateGraph = () =>
     instance().then((viz) => {
-      const svg = viz.renderSVGElement(sheet.dotGraph);
+      const svg = viz.renderSVGElement(debug.dot());
       graph.innerHTML = "";
       graph.appendChild(svg);
     });

@@ -19,7 +19,7 @@
     "vite": "^5.0.8"
   },
   "dependencies": {
-    "@okcontract/cells": "^0.1.5",
+    "@okcontract/cells": "^0.1.6",
     "@viz-js/viz": "^3.2.4"
   }
 }

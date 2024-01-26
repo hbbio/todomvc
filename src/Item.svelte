@@ -1,11 +1,13 @@
-<script>
+<script lang="ts">
   import { quintOut } from "svelte/easing";
   import { scale } from "svelte/transition";
-
   import { createEventDispatcher } from "svelte";
+
+  import type { ValueCell } from "@okcontract/cells";
+  import type { Todo } from "./types";
   const dispatch = createEventDispatcher();
 
-  export let todo; // cell for a single todo item
+  export let todo: ValueCell<Todo>; // cell for a single todo item
   export let selected;
 
   // local cell update, no need to have the list in this component
