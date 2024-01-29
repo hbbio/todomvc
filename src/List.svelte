@@ -6,8 +6,8 @@
     SheetProxy,
     filter,
     type ValueCell,
-  } from "@okcontract/cells";
-  import { sort } from "./sort";
+    sort,
+  } from "../../cells/src";
 
   import { getSHA256Hash } from "./hash";
   import type { Todo } from "./types";

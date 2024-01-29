@@ -3,7 +3,7 @@
   import { scale } from "svelte/transition";
   import { createEventDispatcher } from "svelte";
 
-  import type { ValueCell } from "@okcontract/cells";
+  import type { ValueCell } from "../../cells/src";
   import type { Todo } from "./types";
   const dispatch = createEventDispatcher();
 

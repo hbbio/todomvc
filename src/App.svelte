@@ -1,10 +1,9 @@
 <script lang="ts">
   import { instance } from "@viz-js/viz";
 
-  import { Sheet, Debugger } from "@okcontract/cells";
+  import { Sheet, Debugger } from "../../cells/src";
 
-  const sheet = new Sheet(); // should be global for app
-
+  const sheet = new Sheet(); // global for app
   const debug = new Debugger(sheet);
   // @ts-ignore
   window["debug"] = debug;
