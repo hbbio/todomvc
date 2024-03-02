@@ -4,7 +4,6 @@
   import {
     type Sheet,
     SheetProxy,
-    filter,
     type ValueCell,
     sort,
   } from "../../cells/src";
@@ -49,8 +48,9 @@
 
   const deleteTodo = (id: number) => {
     if ($selected?.id === id) selected.set(nullCell);
-    // @ts-expect-error ValueCell
-    filter(todos, (todo: Todo) => todo.id !== id);
+    todos.update((l) =>
+      l.filter((todo: ValueCell<Todo>) => todo?.value?.id !== id),
+    );
   };
 
   export let updateGraph: () => void;
