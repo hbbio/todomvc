@@ -1,7 +1,7 @@
 <script lang="ts">
   import { instance } from "@viz-js/viz";
 
-  import { Sheet, Debugger } from "../../cells/src";
+  import { Sheet, Debugger } from "@okcontract/cells";
 
   const sheet = new Sheet(); // global for app
   const debug = new Debugger(sheet);

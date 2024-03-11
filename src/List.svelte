@@ -1,12 +1,12 @@
 <script lang="ts">
-  import Item from "./Item.svelte";
-
   import {
     type Sheet,
     SheetProxy,
     type ValueCell,
     sort,
-  } from "../../cells/src";
+  } from "@okcontract/cells";
+
+  import Item from "./Item.svelte";
 
   import { getSHA256Hash } from "./hash";
   import type { Todo } from "./types";
@@ -48,6 +48,7 @@
 
   const deleteTodo = (id: number) => {
     if ($selected?.id === id) selected.set(nullCell);
+    // @todo collect deleted cell
     todos.update((l) =>
       l.filter((todo: ValueCell<Todo>) => todo?.value?.id !== id),
     );
