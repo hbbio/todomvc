@@ -1,5 +1,6 @@
 <script lang="ts">
   import {
+    type AnyCell,
     type CellArray,
     type Sheet,
     SheetProxy,
@@ -67,6 +68,8 @@
   export let updateGraph: () => void;
   todos.subscribe(updateGraph);
   selected.subscribe(updateGraph);
+
+  const cast = (todo: AnyCell<Todo>) => todo as ValueCell<Todo>;
 </script>
 
 <input
@@ -80,7 +83,7 @@
 {#each $sorted as todo (todo.id)}
   <!-- we pass the cell directly -->
   <Item
-    {todo}
+    todo={cast(todo)}
     {selected}
     on:delete={(ev) => {
       deleteTodo(ev.detail);
