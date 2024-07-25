@@ -59,10 +59,12 @@
 
   const deleteTodo = (id: number) => {
     if ($selected?.id === id) selected.set(nullCell);
-    // @todo collect deleted cell
-    todos.update((l) =>
-      l.filter((todo: ValueCell<Todo>) => todo?.value?.id !== id),
-    );
+    let deleted: ValueCell<Todo> | undefined;
+    todos.update((l) => {
+      deleted = l.find((todo) => todo?.value?.id === id);
+      return l.filter((todo: ValueCell<Todo>) => todo?.value?.id !== id);
+    });
+    if (deleted !== undefined) sheet.collect(deleted.id);
   };
 
   export let updateGraph: () => void;
