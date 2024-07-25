@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Sheet } from "@okcontract/cells";
+
   export let sheet: Sheet;
 
   let current: number = 0;

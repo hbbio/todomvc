@@ -1,5 +1,6 @@
 <script lang="ts">
   import {
+    type CellArray,
     type Sheet,
     SheetProxy,
     type ValueCell,
@@ -15,7 +16,7 @@
   const proxy = new SheetProxy(sheet); // local for a page/component
 
   // this is our main list
-  export const todos = proxy.new([] as ValueCell<Todo>[], "todos");
+  export const todos = proxy.new([], "todos") as unknown as CellArray<Todo>;
   // current selected value
   const nullCell = proxy.new<Todo | null>(null, "null");
   const selected = proxy.new(nullCell, "selected");
@@ -29,7 +30,7 @@
   // reactive count
   const count = todos.map((l) => l.length, "length");
   // reactive sorted list
-  const sorted = sort(proxy, todos, (a, b) => (a.completed ? 1 : -1));
+  const sorted = sort(proxy, todos, (a, _b) => (a.completed ? 1 : -1));
 
   let input = "";
 
