@@ -1,7 +1,7 @@
 {
   "name": "todomvc",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,7 +19,7 @@
     "vite": "^5.0.8"
   },
   "dependencies": {
-    "@okcontract/cells": "^0.3.1",
+    "@okcontract/cells": "^0.3.2",
     "@viz-js/viz": "^3.2.4"
   }
 }
