@@ -1,12 +1,10 @@
 <script lang="ts">
   import { instance } from "@viz-js/viz";
 
-  import { Debugger, Sheet } from "@okcontract/cells";
+  import type { Debugger, Sheet } from "@okcontract/cells";
 
-  const sheet = new Sheet(); // global for app
-  const debug = new Debugger(sheet);
-  // @ts-ignore
-  window["debug"] = debug;
+  export let sheet: Sheet;
+  export let debug: Debugger;
 
   import List from "./List.svelte";
 
@@ -25,7 +23,6 @@
   </div>
   <div class="graph">
     <div bind:this={graph} />
-    <!-- <Explorer {sheet} /> -->
   </div>
 </div>
 

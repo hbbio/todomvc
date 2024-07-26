@@ -23,12 +23,10 @@
     "todos",
   ) as unknown as ValueCellArray<Todo>;
   // current selected value
-  const nullCell = proxy.new<Todo | null>(null, "null");
-  const selected = proxy.new(nullCell, "selected");
+  const selected = proxy.new(null as Todo | null, "selected");
   // map async function
   const hash = selected.map(
-    // @ts-ignore
-    async (_todo) => (_todo ? getSHA256Hash(_todo.text) : nullCell),
+    async (_todo) => (_todo ? getSHA256Hash(_todo.text) : null),
     "hash",
   );
 
@@ -58,7 +56,7 @@
   };
 
   const deleteTodo = (id: number) => {
-    if ($selected?.id === id) selected.set(nullCell);
+    if ($selected?.id === id) selected.set(null);
     let deleted: ValueCell<Todo> | undefined;
     todos.update((l) => {
       deleted = l.find((todo) => todo?.value?.id === id);
